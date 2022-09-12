@@ -4,4 +4,4 @@ java -Xms64m -Xmx128m -Ddatasource.dialect="MYSQL" \
 -Ddatasource.username="root" \
 -Ddatasource.password="password" \
 -Dspring.profiles.active="dev" \
--jar target/lavagna-jetty-console.war --headless
+-jar lavagna-jetty-console.war --headless

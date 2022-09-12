@@ -1,5 +1,16 @@
-FROM maven:3.8.6-jdk-8
+FROM maven:3.8.6-jdk-8 AS build
 WORKDIR project
-COPY . .
+COPY src/ src/
+COPY pom.xml .
+COPY LICENSE-GPLv3.txt LICENSE-GPLv3.txt
 RUN mvn verify
+
+FROM adoptopenjdk/openjdk8:alpine-jre
+WORKDIR project/
+COPY --from=build project/target/lavagna-jetty-console.war  .
+COPY entrypoint.sh entrypoint.sh
+RUN apk update
+RUN apk upgrade
+RUN apk add bash
+
 ENTRYPOINT [ "./entrypoint.sh" ]
